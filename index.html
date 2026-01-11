@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)file:///Users/henri/Downloads/index_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Road to a Trillion Dollar ETH</title>
+    <script src="./index_files/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 60px 80px;
+            animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .eth-logo {
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.15));
+            transition: filter 0.6s ease;
+        }
+        
+        .eth-logo:hover {
+            filter: drop-shadow(0 0 60px rgba(255, 255, 255, 0.3));
+        }
+        
+        .hero-title {
+            font-size: clamp(48px, 6vw, 88px);
+            font-weight: 300;
+            letter-spacing: -0.04em;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 80px;
+            line-height: 1.1;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .context-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .context-text {
+            font-size: 21px;
+            line-height: 1.6;
+            color: #e5e5e5;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+        
+        .context-text:first-child {
+            font-weight: 500;
+        }
+        
+        .chart-section {
+            margin-bottom: 80px;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.00) 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 40px;
+        }
+        
+        .chart-wrapper:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4);
+            transform: translateY(-4px);
+        }
+        
+        .chart-title {
+            font-size: 19px;
+            font-weight: 500;
+            color: #cccccc;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 0.2px;
+        }
+        
+        .legend-container {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            padding: 0 60px;
+        }
+        
+        .legend-item {
+            text-align: center;
+        }
+        
+        .legend-label {
+            font-size: 11px;
+            color: #999999;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .legend-value {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+        }
+        
+        .legend-item:first-child .legend-value {
+            border-top: 3px solid #ffffff;
+            padding-top: 12px;
+            display: inline-block;
+        }
+        
+        .legend-item:last-child .legend-value {
+            padding-top: 12px;
+            display: inline-block;
+            color: #999999;
+            position: relative;
+        }
+        
+        .legend-item:last-child .legend-value::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 8px;
+            background-color: #666666;
+            border-radius: 2px;
+        }
+        
+        canvas {
+            max-height: 500px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer:hover {
+            opacity: 1;
+        }
+        
+        .footer-text {
+            font-size: 16px;
+            color: #999999;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .tt-logo-link {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .tt-logo-link:hover {
+            transform: translateY(-2px);
+        }
+        
+        .tt-logo {
+            height: 24px;
+            width: auto;
+            filter: brightness(1.2);
+        }
+        
+        @media (max-width: 1024px) {
+            .legend-container {
+                gap: 60px;
+            }
+            
+            .legend-value {
+                font-size: 40px;
+            }
+            
+            .chart-wrapper {
+                padding: 40px 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 30px;
+            }
+            
+            .hero-title {
+                margin-bottom: 60px;
+            }
+            
+            .context-section {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                margin-bottom: 60px;
+            }
+            
+            .context-text {
+                font-size: 18px;
+            }
+            
+            .eth-logo {
+                width: 80px;
+            }
+            
+            .logo-container {
+                margin-bottom: 32px;
+            }
+            
+            .legend-container {
+                flex-direction: column;
+                gap: 32px;
+                padding: 0 30px;
+            }
+            
+            .legend-value {
+                font-size: 36px;
+            }
+            
+            .chart-wrapper {
+                padding: 30px 20px;
+            }
+            
+            .chart-title {
+                font-size: 13px;
+            }
+        }
+        
+        /* Premium scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Premium selection color */
+        ::selection {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <svg class="eth-logo" viewBox="0 0 256 417" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#8C8C8C" d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z"></path>
+                <path fill="#393939" d="M127.962 0L0 212.32l127.962 75.639V154.158z"></path>
+                <path fill="#8C8C8C" d="M127.961 312.187l-1.575 1.92v98.199l1.575 4.6L256 236.587z"></path>
+                <path fill="#393939" d="M127.962 416.905v-104.72L0 236.585z"></path>
+                <path fill="#141414" d="M127.961 287.958l127.96-75.637-127.96-58.162z"></path>
+                <path fill="#393939" d="M0 212.32l127.96 75.638v-133.8z"></path>
+            </svg>
+        </div>
+        
+        <h1 class="hero-title">The Road to a Trillion Dollar ETH</h1>
+        
+        <div class="context-section">
+            <p class="context-text">
+                For more than five years, the market cap of tokenized assets on Ethereum has established a floor for ETH's valuation.
+            </p>
+            <p class="context-text">
+                Should this trend continue to hold, ETH should reach a market cap of one trillion dollars once the market cap of tokenized assets on Ethereum surpasses that threshold.
+            </p>
+        </div>
+        
+        <div class="chart-section">
+            <div class="chart-wrapper">
+                <div class="chart-title">Fully diluted market cap of ETH &amp; tokenized assets on Ethereum</div>
+                <canvas id="metricsChart" width="2316" height="1000" style="display: block; box-sizing: border-box; height: 500px; width: 1158px;"></canvas>
+            </div>
+            
+            <div class="legend-container">
+                <div class="legend-item">
+                    <div class="legend-label">Fully diluted market cap (ETH)</div>
+                    <div class="legend-value">$372B</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-label">Tokenized assets (Ethereum)</div>
+                    <div class="legend-value">$336B</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span class="footer-text">Data from</span>
+            <a href="https://tokenterminal.com/explorer/tokenized-assets" target="_blank" rel="noopener noreferrer" class="tt-logo-link">
+                <img src="data:image/png;base64,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" alt="Token Terminal" class="tt-logo">
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Generate weekly data from 2017 to present (Jan 2026)
+        function generateHistoricalData() {
+            const startDate = new Date('2017-01-01');
+            const endDate = new Date('2026-01-11');
+            const labels = [];
+            const marketCapData = [];
+            const tvlData = [];
+            
+            const milestones = [
+                { date: new Date('2017-01-01'), mcap: 8, tvl: 0.07 },
+                { date: new Date('2018-01-01'), mcap: 85, tvl: 0.3 },
+                { date: new Date('2019-01-01'), mcap: 15, tvl: 0.5 },
+                { date: new Date('2020-01-01'), mcap: 15, tvl: 0.7 },
+                { date: new Date('2020-06-01'), mcap: 25, tvl: 1.2 },
+                { date: new Date('2021-01-01'), mcap: 140, tvl: 15 },
+                { date: new Date('2021-05-01'), mcap: 400, tvl: 75 },
+                { date: new Date('2021-11-01'), mcap: 550, tvl: 180 },
+                { date: new Date('2022-01-01'), mcap: 350, tvl: 160 },
+                { date: new Date('2022-06-01'), mcap: 150, tvl: 110 },
+                { date: new Date('2023-01-01'), mcap: 190, tvl: 70 },
+                { date: new Date('2023-12-01'), mcap: 280, tvl: 95 },
+                { date: new Date('2024-03-01'), mcap: 420, tvl: 130 },
+                { date: new Date('2024-12-01'), mcap: 385, tvl: 290 },
+                { date: new Date('2026-01-11'), mcap: 372, tvl: 336 }
+            ];
+            
+            let currentDate = new Date(startDate);
+            let milestoneIndex = 0;
+            
+            while (currentDate <= endDate) {
+                const month = currentDate.toLocaleString('default', { month: 'short' });
+                const year = currentDate.getFullYear().toString().slice(-2);
+                labels.push(`${month} '${year}`);
+                
+                while (milestoneIndex < milestones.length - 1 && 
+                       currentDate >= milestones[milestoneIndex + 1].date) {
+                    milestoneIndex++;
+                }
+                
+                if (milestoneIndex < milestones.length - 1) {
+                    const start = milestones[milestoneIndex];
+                    const end = milestones[milestoneIndex + 1];
+                    const totalDays = (end.date - start.date) / (1000 * 60 * 60 * 24);
+                    const daysPassed = (currentDate - start.date) / (1000 * 60 * 60 * 24);
+                    const progress = daysPassed / totalDays;
+                    
+                    const noise = (Math.random() - 0.5) * 0.08;
+                    
+                    const mcap = start.mcap + (end.mcap - start.mcap) * progress * (1 + noise);
+                    const tvl = start.tvl + (end.tvl - start.tvl) * progress * (1 + noise);
+                    
+                    marketCapData.push(mcap);
+                    tvlData.push(tvl);
+                } else {
+                    marketCapData.push(milestones[milestones.length - 1].mcap);
+                    tvlData.push(milestones[milestones.length - 1].tvl);
+                }
+                
+                currentDate.setDate(currentDate.getDate() + 7);
+            }
+            
+            return { labels, marketCapData, tvlData };
+        }
+        
+        const historicalData = generateHistoricalData();
+        
+        const data = {
+            labels: historicalData.labels,
+            datasets: [
+                {
+                    label: 'Fully Diluted Market Cap (ETH)',
+                    data: historicalData.marketCapData,
+                    borderColor: '#ffffff',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2.5,
+                    tension: 0.45,
+                    pointRadius: 0,
+                    pointHoverRadius: 6,
+                    pointHoverBackgroundColor: '#ffffff',
+                    pointHoverBorderColor: '#000000',
+                    pointHoverBorderWidth: 2,
+                    yAxisID: 'y',
+                    order: 1
+                },
+                {
+                    label: 'Tokenized Assets (Ethereum)',
+                    data: historicalData.tvlData,
+                    borderColor: '#666666',
+                    backgroundColor: 'rgba(102, 102, 102, 0.35)',
+                    borderWidth: 2,
+                    tension: 0.45,
+                    pointRadius: 0,
+                    pointHoverRadius: 6,
+                    pointHoverBackgroundColor: '#666666',
+                    pointHoverBorderColor: '#ffffff',
+                    pointHoverBorderWidth: 2,
+                    fill: true,
+                    yAxisID: 'y',
+                    order: 2
+                }
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: 'rgba(0, 0, 0, 0.95)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#cccccc',
+                        borderColor: 'rgba(255, 255, 255, 0.2)',
+                        borderWidth: 1,
+                        padding: 16,
+                        cornerRadius: 12,
+                        titleFont: {
+                            size: 14,
+                            weight: '600',
+                            family: '-apple-system, BlinkMacSystemFont, SF Pro Display'
+                        },
+                        bodyFont: {
+                            size: 16,
+                            weight: '500',
+                            family: '-apple-system, BlinkMacSystemFont, SF Pro Display'
+                        },
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += '$' + context.parsed.y.toFixed(0) + 'B';
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        beginAtZero: true,
+                        max: 600,
+                        ticks: {
+                            color: '#888888',
+                            font: {
+                                size: 13,
+                                weight: '500'
+                            },
+                            callback: function(value) {
+                                return '$' + value + 'B';
+                            },
+                            padding: 12
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.08)',
+                            drawBorder: false,
+                            lineWidth: 1
+                        },
+                        border: {
+                            display: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#888888',
+                            font: {
+                                size: 12,
+                                weight: '500'
+                            },
+                            padding: 12,
+                            maxRotation: 0,
+                            autoSkip: true,
+                            maxTicksLimit: 15
+                        },
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        };
+
+        const ctx = document.getElementById('metricsChart').getContext('2d');
+        new Chart(ctx, config);
+    </script>
+
+
+</body></html>
