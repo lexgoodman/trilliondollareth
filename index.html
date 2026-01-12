@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Road to a Trillion Dollar ETH</title>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.trilliondollareth.com">
+    <meta property="og:title" content="The Road to a Trillion Dollar ETH">
+    <meta property="og:description" content="For more than five years, the application TVL on Ethereum has established a floor for ETH's valuation.">
+    <meta property="og:image" content="https://www.trilliondollareth.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Road to a Trillion Dollar ETH">
+    <meta name="twitter:description" content="For more than five years, the application TVL on Ethereum has established a floor for ETH's valuation.">
+    <meta name="twitter:image" content="https://www.trilliondollareth.com/og-image.png">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -84,15 +96,23 @@
         }
         
         .context-text {
-            font-size: 21px;
-            line-height: 1.6;
-            color: #e5e5e5;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #b0b0b0;
             font-weight: 400;
             letter-spacing: -0.01em;
         }
         
-        .context-text:first-child {
-            font-weight: 500;
+        .context-text strong {
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        
+        .context-text p {
+            margin: 0;
         }
         
         .chart-section {
@@ -126,10 +146,11 @@
         }
         
         .legend-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 0 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
         }
         
         .legend-item {
@@ -224,7 +245,7 @@
         
         @media (max-width: 1024px) {
             .legend-container {
-                gap: 24px;
+                gap: 40px;
             }
             
             .legend-item {
@@ -268,9 +289,8 @@
             }
             
             .legend-container {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 gap: 16px;
-                padding: 0 20px;
             }
             
             .legend-item {
@@ -420,20 +440,17 @@
         <h1 class="hero-title">The Road to a Trillion Dollar ETH</h1>
         
         <div class="context-section">
-            <p class="context-text">
-                For more than five years, the application TVL on Ethereum has established a floor for ETH's valuation.
-            </p>
-            <p class="context-text">
-                Should this trend continue to hold, ETH should reach a market cap of one trillion dollars once the application TVL on Ethereum surpasses that threshold.
-            </p>
+            <div class="context-text">
+                <strong>The relationship between application TVL and valuation</strong>
+                <p>For more than five years, the application TVL on Ethereum has established a floor for ETH's valuation. That is, ETH's fully diluted market cap has not fallen below the sum of funds deposited into the applications on Ethereum. If this trend continues to hold, ETH should reach a market cap of one trillion dollars once the application TVL on Ethereum surpasses that threshold.</p>
+            </div>
+            <div class="context-text">
+                <strong>Why this relationship might strengthen over time</strong>
+                <p>Many of the leading applications on Ethereum use ETH the asset as a core input to power their businesses. For example, Aave has ~$20 billion of ETH and ETH derivatives as deposits. When used as collateral, these deposits allow borrowers to take out new loans that drive increasing revenue for Aave. Aave creates new demand for ETH, and directly benefits from a growing value of ETH. Because of this synergistic relationship, Ethereum works more like a Money Cloud than a Big Tech Cloud.</p>
+            </div>
         </div>
         
         <div class="chart-section">
-            <div class="chart-wrapper">
-                <div class="chart-title">Fully diluted market cap of ETH (line) & application TVL (area) on Ethereum</div>
-                <canvas id="metricsChart"></canvas>
-            </div>
-            
             <div class="legend-container">
                 <div class="legend-item">
                     <div class="legend-label">Fully diluted market cap (ETH)</div>
@@ -443,6 +460,11 @@
                     <div class="legend-label">Application TVL (Ethereum)</div>
                     <div class="legend-value">$338B</div>
                 </div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <div class="chart-title">Fully diluted market cap of ETH (line) & application TVL (area) on Ethereum</div>
+                <canvas id="metricsChart"></canvas>
             </div>
         </div>
 
@@ -606,7 +628,7 @@
                 <a href="https://x.com/ZachWitkoff" target="_blank" rel="noopener noreferrer" class="builder-item">
                     <img src="data:image/jpeg;base64,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" alt="World Liberty Financial" class="builder-logo">
                     <div class="builder-info">
-                        <span class="builder-name">World Liberty Financial</span>
+                        <span class="builder-name">World Liberty</span>
                         <span class="builder-handle">@ZachWitkoff</span>
                     </div>
                 </a>
